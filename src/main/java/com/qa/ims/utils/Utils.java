@@ -4,8 +4,9 @@ import java.util.Scanner;
 
 public class Utils {
 
-	public static final String MYSQL_URL = "34.89.21.38:3306";
+	public static final String MYSQL_URL = "localhost:3306";
 	public static final Scanner SCANNER = new Scanner(System.in);
+//	jdbc:mysql://localhost:3306/ims?serverTimezone=UTC\
 
 	private Utils() {
 
@@ -13,6 +14,14 @@ public class Utils {
 
 	public static String getInput() {
 		return SCANNER.nextLine();
+	}
+	
+	public static double getInputDouble() {
+		return SCANNER.nextDouble();
+	}
+	
+	public static int getInputInt() {
+		return SCANNER.nextInt();
 	}
 
 }

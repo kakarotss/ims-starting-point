@@ -13,9 +13,12 @@ import org.apache.log4j.Logger;
 import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
+import com.qa.ims.controller.ProductController;
 import com.qa.ims.persistence.dao.CustomerDaoMysql;
+import com.qa.ims.persistence.dao.ProductDaoMysql;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.services.CustomerServices;
+import com.qa.ims.services.ProductServices;
 import com.qa.ims.utils.Utils;
 
 public class Ims {
@@ -46,6 +49,10 @@ public class Ims {
 			doAction(customerController, action);
 			break;
 		case ITEM:
+			
+			ProductController productController = new ProductController(
+					new ProductServices(new ProductDaoMysql(username, password)));
+			doAction(productController, action);
 			break;
 		case ORDER:
 			break;
@@ -86,7 +93,7 @@ public class Ims {
 	 * @param password
 	 */
 	public void init(String username, String password) {
-		init("jdbc:mysql://" + Utils.MYSQL_URL + "/", username, password, "src/main/resources/sql-schema.sql");
+		init("jdbc:mysql://" + Utils.MYSQL_URL + "/ims?serverTimezone=UTC "+"", username, password, "src/main/resources/sql-schema.sql");
 	}
 
 	public String readFile(String fileLocation) {
