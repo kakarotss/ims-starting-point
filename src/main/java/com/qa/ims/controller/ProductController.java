@@ -59,12 +59,25 @@ public class ProductController implements CrudController<Product>{
 	@Override
 	public Product update() {
 		// TODO Auto-generated method stub
-		return null;
+		
+		LOGGER.info("Please enter the id of the product you would like to update");
+		Long id = Long.valueOf(getInput());
+		LOGGER.info("Please enter the new Product Name");
+		String name = getInput();
+		LOGGER.info("Please enter the new Product Price");
+		double price = getInputDouble();
+		LOGGER.info("Please enter the new Product Quantity");
+		int qty = getInputInt();
+		Product product = productService.update(new Product(id, name, price, qty));
+		LOGGER.info("Product Updated");
+		return product;
 	}
 
 	@Override
 	public void delete() {
-		// TODO Auto-generated method stub
+		LOGGER.info("Please enter the id of the product you would like to delete");
+		Long id = Long.valueOf(getInput());
+		productService.delete(id);
 		
 	}
 

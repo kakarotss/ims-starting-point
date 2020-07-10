@@ -26,19 +26,23 @@ public class Ims {
 	public static final Logger LOGGER = Logger.getLogger(Ims.class);
 
 	public void imsSystem() {
+		boolean continousMenu = true;
 		LOGGER.info("What is your username");
 		String username = Utils.getInput();
 		LOGGER.info("What is your password");
 		String password = Utils.getInput();
 
 		init(username, password);
-
+		
+		while (continousMenu) {
 		LOGGER.info("Which entity would you like to use?");
 		Domain.printDomains();
 
 		Domain domain = Domain.getDomain();
+		
+		if(domain != Domain.STOP) {
 		LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
-
+		
 		Action.printActions();
 		Action action = Action.getAction();
 
@@ -57,12 +61,23 @@ public class Ims {
 		case ORDER:
 			break;
 		case STOP:
+			continousMenu = false;
 			break;
 		default:
 			break;
 		}
+		
+		}
+		else {
+			continousMenu = false;
+			System.out.println("Shutting down...");
+		}
+		
+		}
+		
 
 	}
+		
 
 	public void doAction(CrudController<?> crudController, Action action) {
 		switch (action) {
@@ -73,9 +88,11 @@ public class Ims {
 			crudController.readAll();
 			break;
 		case UPDATE:
+			crudController.readAll();
 			crudController.update();
 			break;
 		case DELETE:
+			crudController.readAll();
 			crudController.delete();
 			break;
 		case RETURN:

@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Product;
 import com.qa.ims.utils.Utils;
 
@@ -73,6 +74,19 @@ public class ProductDaoMysql implements Dao<Product>{
 		}
 		return null;
 	}
+	
+	public Product readProduct(Long id) {
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("SELECT FROM products where prodId = " + id);) {
+			resultSet.next();
+			return productFromResultSet(resultSet);
+		} catch (Exception e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
 
 	@Override
 	public Product create(Product product) {
@@ -90,14 +104,32 @@ public class ProductDaoMysql implements Dao<Product>{
 	}
 
 	@Override
-	public Product update(Product t) {
-		// TODO Auto-generated method stub
+	public Product update(Product product) {
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("update products set prodName ='" + product.getName() + "', prodPrice ='"
+					+ product.getPrice() + "', prodQty ='" + product.getQty() + "' where prodId =" + product.getId());
+			return readProduct(product.getId());
+		} catch (Exception e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
 		return null;
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void delete(long id) {
-		// TODO Auto-generated method stub
+		
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("delete from products where prodId = " + id);
+			
+		} catch (Exception e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
 		
 	}
 
