@@ -95,6 +95,7 @@ public class ProductDaoMysql implements Dao<Product>{
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("insert into products(prodName, prodPrice, prodQty) values('" + product.getName()
 					+ "','" + product.getPrice() + "','"+ product.getQty() + "')");
+			LOGGER.info("Product Created");
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
@@ -109,6 +110,7 @@ public class ProductDaoMysql implements Dao<Product>{
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("update products set prodName ='" + product.getName() + "', prodPrice ='"
 					+ product.getPrice() + "', prodQty ='" + product.getQty() + "' where prodId =" + product.getId());
+			LOGGER.info("Product Updated");
 			return readProduct(product.getId());
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());

@@ -69,7 +69,6 @@ public class ProductController implements CrudController<Product>{
 		LOGGER.info("Please enter the new Product Quantity");
 		int qty = getInputInt();
 		Product product = productService.update(new Product(id, name, price, qty));
-		LOGGER.info("Product Updated");
 		return product;
 	}
 
@@ -77,6 +76,7 @@ public class ProductController implements CrudController<Product>{
 	public void delete() {
 		LOGGER.info("Please enter the id of the product you would like to delete");
 		Long id = Long.valueOf(getInput());
+		
 		productService.delete(id);
 		
 	}
