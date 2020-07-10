@@ -36,6 +36,8 @@ public enum Domain {
 				domain = Domain.valueOf(Utils.getInput().toUpperCase());
 				break;
 			} catch (IllegalArgumentException e) {
+				printDomains();
+				getDomain();
 				LOGGER.error("Invalid selection please try again");
 			}
 		}
