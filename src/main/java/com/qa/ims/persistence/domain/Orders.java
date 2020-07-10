@@ -1,6 +1,6 @@
 package com.qa.ims.persistence.domain;
 
-public class orders {
+public class Orders {
 	
 	private Long orderId;
 	private Long orderCustId;
@@ -9,7 +9,7 @@ public class orders {
 	private int orderqty;
 	private double lineCost;
 	
-	public orders(Long orderId, Long orderCustId, Long orderProdId, double total, int orderqty, double lineCost) {
+	public Orders(Long orderId, Long orderCustId, Long orderProdId, double total, int orderqty, double lineCost) {
 		super();
 		this.orderId = orderId;
 		this.orderCustId = orderCustId;
@@ -19,7 +19,7 @@ public class orders {
 		this.lineCost = lineCost;
 	}
 
-	public orders(Long orderCustId, Long orderProdId, double total, int orderqty, double lineCost) {
+	public Orders(Long orderCustId, Long orderProdId, double total, int orderqty, double lineCost) {
 		super();
 		this.orderCustId = orderCustId;
 		this.orderProdId = orderProdId;
@@ -28,7 +28,22 @@ public class orders {
 		this.lineCost = lineCost;
 	}
 	
-	public orders() {
+	
+	
+	public Orders(Long orderId, Long orderCustId, double total) {
+		super();
+		this.orderId = orderId;
+		this.orderCustId = orderCustId;
+		Total = total;
+	}
+	
+	public Orders(Long orderCustId) {
+		super();
+		this.orderCustId = orderCustId;
+	
+	}
+
+	public Orders() {
 		
 	}
 
@@ -79,4 +94,13 @@ public class orders {
 	public void setLineCost(double lineCost) {
 		this.lineCost = lineCost;
 	}
+
+	@Override
+	public String toString() {
+		return "Orders [orderId=" + orderId + ", orderCustId=" + orderCustId + ", Total=" + Total + "]";
+	}
+	
+	
+	
+	
 }
