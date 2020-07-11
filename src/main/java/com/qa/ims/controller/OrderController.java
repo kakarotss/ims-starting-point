@@ -1,11 +1,17 @@
 package com.qa.ims.controller;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import com.qa.ims.persistence.dao.OrderDaoMysql;
+import com.qa.ims.persistence.domain.Orderlines;
 import com.qa.ims.persistence.domain.Orders;
 import com.qa.ims.services.CrudServices;
 import com.qa.ims.utils.Utils;
@@ -13,6 +19,24 @@ import com.qa.ims.utils.Utils;
 public class OrderController implements CrudController<Orders> {
 	
 	public static final Logger LOGGER = Logger.getLogger(ProductController.class);
+	
+	private static String jdbcConnectionUrl;
+	private static String username;
+	private static String password;
+	
+	public OrderController(String username, String password) {
+		this.jdbcConnectionUrl = "jdbc:mysql://" + Utils.MYSQL_URL + "/ims?serverTimezone=UTC"+"";
+		this.username = username;
+		this.password = password;
+	}
+	
+	public OrderController(String jdbcConnectionUrl, String username, String password) {
+		this.jdbcConnectionUrl = jdbcConnectionUrl;
+		this.username = username;
+		this.password = password;
+	}
+
+
 
 	private CrudServices<Orders> orderService;
 	
@@ -31,12 +55,44 @@ public class OrderController implements CrudController<Orders> {
 	int getInputInt() {
 		return Utils.getInputInt();
 	}
+	
+	static Orderlines orderlinesFromResultSet(ResultSet resultSet) throws SQLException {
+		Long orderId = resultSet.getLong("orderId");
+		Long custId = resultSet.getLong("orderCustId");
+		Long prodId = resultSet.getLong("prodId");
+		int qty = resultSet.getInt("prodQty");
+		double lineCost = resultSet.getDouble("lineCost");
+		return new Orderlines(orderId, custId, prodId, qty, lineCost);
+	}
 
 	@Override
 	public List<Orders> readAll() {
 		List<Orders> orders = orderService.readAll();
+		ArrayList<Orderlines> orderlines = new ArrayList<>();
+		int counter = 0;
 		for(Orders order: orders) {
 			LOGGER.info(order.toString());
+			
+			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+					Statement statement = connection.createStatement();
+					
+					ResultSet resultSetOrderLines = statement.executeQuery("select * from orderlines where orderId = " + orders.get(counter).getOrderId());
+					 ) {
+				
+				
+				while(resultSetOrderLines.next()) {
+					orderlines.add(orderlinesFromResultSet(resultSetOrderLines));
+					LOGGER.info(orderlinesFromResultSet(resultSetOrderLines));
+					
+				}
+				
+			}catch (Exception e) {
+				LOGGER.debug(e.getStackTrace());
+				LOGGER.error(e.getMessage());
+			}
+			counter++ ;
+			
+			
 		}
 		return orders;
 	}

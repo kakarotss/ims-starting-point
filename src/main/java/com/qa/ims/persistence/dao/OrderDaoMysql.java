@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.qa.ims.persistence.domain.Orderlines;
 import com.qa.ims.persistence.domain.Orders;
 import com.qa.ims.persistence.domain.Product;
 import com.qa.ims.utils.Utils;
@@ -44,6 +45,15 @@ public class OrderDaoMysql implements Dao<Orders>{
 //		double Price = resultSet.getDouble("prodPrice");;
 //		int qty = resultSet.getInt("prodQty");;
 		return new Orders(orderId, custId, total);
+	}
+	
+	static Orderlines orderlinesFromResultSet(ResultSet resultSet) throws SQLException {
+		Long orderId = resultSet.getLong("orderId");
+		Long custId = resultSet.getLong("orderCustId");
+		Long prodId = resultSet.getLong("prodId");
+		int qty = resultSet.getInt("prodQty");
+		double lineCost = resultSet.getDouble("lineCost");
+		return new Orderlines(orderId, custId, prodId, qty, lineCost);
 	}
 	
 	static Product productFromResultSet(ResultSet resultSet) throws SQLException {
@@ -128,10 +138,35 @@ public class OrderDaoMysql implements Dao<Orders>{
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	public List<Orders> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();
+				Statement statement2 = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("select * from orders");
+				 ) {
+			ArrayList<Orders> orders = new ArrayList<>();
+//			ArrayList<Orderlines> orderlines = new ArrayList<>();
+			while (resultSet.next()) {
+				
+//				ResultSet resultSetOrderLines = statement2.executeQuery("select * from orderlines where orderId = " + resultSet.getLong("orderId"));
+//				System.out.println("select * from orderlines where orderId = " + resultSet.getLong("orderId"));
+				orders.add(orderFromResultSet(resultSet));
+				
+//				while(resultSetOrderLines.next()) {
+//					orderlines.add(orderlinesFromResultSet(resultSetOrderLines));
+//					
+//				}
+				
+			}
+			
+			return orders;
+		} catch (SQLException e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+		return new ArrayList<>();
 	}
 
 	@Override
