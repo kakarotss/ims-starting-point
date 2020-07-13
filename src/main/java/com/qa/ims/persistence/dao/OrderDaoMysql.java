@@ -114,17 +114,23 @@ public class OrderDaoMysql implements Dao<Orders>{
 			
 			double Total= 0;
 			for(int i = 0; i < prodIds.size(); i++) {
-				
+			
+				// reads the products table and gets the price according to the prod id
 				double price = readProducts((long) prodIds.get(i)).getPrice();
+				
+				//keeps track of the total of the line costs
 				Total = Total+price*prodQtys.get(i);
 				
-				
-			statement.executeUpdate("insert into orderLines(orderId, orderCustId, prodId, prodQty, lineCost) values(" + orderId
+			//inserts into the orderlines table
+				statement.executeUpdate("insert into orderLines(orderId, orderCustId, prodId, prodQty, lineCost) values(" + orderId
 					+ "," + custId + "," + prodIds.get(i) + ""+ "," + prodQtys.get(i) + ""+ "," + price*prodQtys.get(i) + ""+ ")");
+			
+				//updates the product quantity in the products table
+				statement.executeUpdate("update products set prodQty = prodQty - " + prodQtys.get(i) + " WHERE prodId =" + prodIds.get(i));
 
 			}
-			System.out.println("update orders set total =" + Total + "WHERE orderId =" + orderId);
-			
+		
+			//updates the order total in the prders table
 			statement.executeUpdate("update orders set total =" + Total + " WHERE orderId =" + orderId);
 			
 			LOGGER.info("Orderlines inserted");
@@ -147,18 +153,9 @@ public class OrderDaoMysql implements Dao<Orders>{
 				ResultSet resultSet = statement.executeQuery("select * from orders");
 				 ) {
 			ArrayList<Orders> orders = new ArrayList<>();
-//			ArrayList<Orderlines> orderlines = new ArrayList<>();
+
 			while (resultSet.next()) {
-				
-//				ResultSet resultSetOrderLines = statement2.executeQuery("select * from orderlines where orderId = " + resultSet.getLong("orderId"));
-//				System.out.println("select * from orderlines where orderId = " + resultSet.getLong("orderId"));
 				orders.add(orderFromResultSet(resultSet));
-				
-//				while(resultSetOrderLines.next()) {
-//					orderlines.add(orderlinesFromResultSet(resultSetOrderLines));
-//					
-//				}
-				
 			}
 			
 			return orders;
