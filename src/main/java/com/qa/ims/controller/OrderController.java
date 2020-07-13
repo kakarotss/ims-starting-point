@@ -195,7 +195,6 @@ public class OrderController implements CrudController<Orders> {
 
 	@Override
 	public void delete() {
-		readAll();
 		LOGGER.info("Please enter the id of the Order you would like to delete");
 		Long id = Long.valueOf(getInput());
 		

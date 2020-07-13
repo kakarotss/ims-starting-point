@@ -186,8 +186,8 @@ public class OrderDaoMysql implements Dao<Orders>{
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();
 				Statement statement2 = connection.createStatement();) {
-			statement.executeUpdate("delete from orders where orderId = " + id);
 			statement.executeUpdate("delete from orderlines where orderId = " + id);
+			statement.executeUpdate("delete from orders where orderId = " + id);
 			LOGGER.info("Order deleted");
 			
 		} catch (Exception e) {
