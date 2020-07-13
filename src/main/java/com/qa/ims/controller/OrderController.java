@@ -98,7 +98,6 @@ public class OrderController implements CrudController<Orders> {
 			
 			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 					Statement statement = connection.createStatement();
-					
 					ResultSet resultSetOrderLines = statement.executeQuery("select * from orderlines where orderId = " + orders.get(counter).getOrderId());
 					 ) {
 				
