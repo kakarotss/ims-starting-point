@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import com.qa.ims.persistence.dao.OrderDaoMysql;
 import com.qa.ims.persistence.domain.Orderlines;
 import com.qa.ims.persistence.domain.Orders;
+import com.qa.ims.persistence.domain.Product;
 import com.qa.ims.services.CrudServices;
 import com.qa.ims.utils.Utils;
 
@@ -58,12 +59,34 @@ public class OrderController implements CrudController<Orders> {
 	
 	static Orderlines orderlinesFromResultSet(ResultSet resultSet) throws SQLException {
 		Long orderId = resultSet.getLong("orderId");
+		Long orderLinesId = resultSet.getLong("orderLinesId");
 		Long custId = resultSet.getLong("orderCustId");
 		Long prodId = resultSet.getLong("prodId");
 		int qty = resultSet.getInt("prodQty");
 		double lineCost = resultSet.getDouble("lineCost");
-		return new Orderlines(orderId, custId, prodId, qty, lineCost);
+		return new Orderlines(orderId, orderLinesId, custId, prodId, qty, lineCost);
 	}
+	
+	
+	// prints all the orderlines using the order Id
+//	public void orderlinesById(long id) {
+//		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+//				Statement statement = connection.createStatement();
+//				
+//				ResultSet resultSetOrderLines = statement.executeQuery("select * from orderlines where orderId = " + id);
+//				 ) {
+//			
+//			
+//			while(resultSetOrderLines.next()) {
+//				LOGGER.info(orderlinesFromResultSet(resultSetOrderLines));
+//				
+//			}
+//			
+//		}catch (Exception e) {
+//			LOGGER.debug(e.getStackTrace());
+//			LOGGER.error(e.getMessage());
+//		}
+//	}
 
 	@Override
 	public List<Orders> readAll() {
@@ -142,21 +165,41 @@ public class OrderController implements CrudController<Orders> {
 		
 		
 		Orders order = OrderDaoMysql.createOrder(custId, prodIdArray, prodQtyArray);
-		LOGGER.info("Product created");
+//		LOGGER.info("Product created");
 		
 		return order;
 	}
 
 	@Override
 	public Orders update() {
-		// TODO Auto-generated method stub
+		
+		System.out.println("Orders cannot be updated");
+		
+		//not required in the spec
+		
+//		readAll();
+//		
+//		LOGGER.info("Please enter the order ID you want to make changes to ");
+//		orderlinesById(Long.valueOf(getInput()));
+//		LOGGER.info("Please enter the orderlines ID you want to update");
+//		Long orderlinesId = Long.valueOf(getInput());
+//		LOGGER.info("Please enter the new product Id");
+//		Long prodId = (Long.valueOf(getInput()));
+//		LOGGER.info("Please enter the new Product Quantity");
+//		int qty = getInputInt();
+//		Orders orderlines = orderService.update(new Orders(orderlinesId, name, price, qty));
+//		return orderlines;
 		return null;
+		
 	}
 
 	@Override
 	public void delete() {
-		// TODO Auto-generated method stub
+		readAll();
+		LOGGER.info("Please enter the id of the Order you would like to delete");
+		Long id = Long.valueOf(getInput());
 		
+		orderService.delete(id);
 	}
 
 }

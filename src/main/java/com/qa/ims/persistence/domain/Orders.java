@@ -18,6 +18,8 @@ public class Orders {
 		this.orderqty = orderqty;
 		this.lineCost = lineCost;
 	}
+	
+
 
 	public Orders(Long orderCustId, Long orderProdId, double total, int orderqty, double lineCost) {
 		super();

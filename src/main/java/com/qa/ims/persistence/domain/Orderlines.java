@@ -3,6 +3,7 @@ package com.qa.ims.persistence.domain;
 public class Orderlines {
 	
 	private Long orderId;
+	private Long orderLinesId;
 	private Long orderCustId;
 	private Long orderProdId;
 	private int orderqty;
@@ -18,6 +19,29 @@ public class Orderlines {
 		this.lineCost = lineCost;
 	}
 	
+	
+	public Long getOrderLinesId() {
+		return orderLinesId;
+	}
+
+
+	public void setOrderLinesId(Long orderLinesId) {
+		this.orderLinesId = orderLinesId;
+	}
+
+
+	public Orderlines(Long orderId, Long orderLinesId, Long orderCustId, Long orderProdId, int orderqty,
+			double lineCost) {
+		super();
+		this.orderId = orderId;
+		this.orderLinesId = orderLinesId;
+		this.orderCustId = orderCustId;
+		this.orderProdId = orderProdId;
+		this.orderqty = orderqty;
+		this.lineCost = lineCost;
+	}
+
+
 	public Orderlines() {
 		
 	}
@@ -75,9 +99,12 @@ public class Orderlines {
 
 	@Override
 	public String toString() {
-		return "Orderlines [orderId=" + orderId + ", orderCustId=" + orderCustId + ", orderProdId=" + orderProdId
-				+ ", orderqty=" + orderqty + ", lineCost=" + lineCost + "]";
+		return "Orderlines [orderId=" + orderId + ", orderLinesId=" + orderLinesId + ", orderCustId=" + orderCustId
+				+ ", orderProdId=" + orderProdId + ", orderqty=" + orderqty + ", lineCost=" + lineCost + "]";
 	}
+
+
+
 	
 	
 	
