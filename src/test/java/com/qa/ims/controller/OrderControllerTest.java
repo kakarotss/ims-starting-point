@@ -2,6 +2,8 @@ package com.qa.ims.controller;
 
 import static org.junit.Assert.assertEquals;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import com.mysql.cj.x.protobuf.MysqlxCrud.Order;
 import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.persistence.domain.Orderlines;
 import com.qa.ims.persistence.domain.Orders;
 import com.qa.ims.persistence.domain.Product;
 import com.qa.ims.services.CustomerServices;
@@ -44,6 +47,20 @@ public class OrderControllerTest {
 	@Before
 	public void setUp(){
 		orderController = new OrderController(orderServices);
+	}
+	
+	@Test
+	public void resultSetTest() throws SQLException {
+		ResultSet result = null;
+		Orderlines orl = new Orderlines();
+
+	}
+	
+	
+	@Test
+	public void constructor1Test() {
+		OrderController ord = new OrderController("username", "password");
+		assertEquals(ord, ord);
 	}
 
 	@Test

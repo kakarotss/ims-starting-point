@@ -49,11 +49,7 @@ public class OrderController implements CrudController<Orders> {
 	CustomerController customerController = new CustomerController(
 			new CustomerServices(new CustomerDaoMysql(username, password)));
 	private CrudServices<Orders> orderService;
-//	private CrudServices<Product> prodService;
-//	private CrudServices<Customer> custService;
-	
-//	ProductController prodC = new ProductController(prodService);
-//	CustomerController custC = new CustomerController(custService);
+
 	
 	public OrderController(CrudServices<Orders> orderService) {
 		this.orderService = orderService;
