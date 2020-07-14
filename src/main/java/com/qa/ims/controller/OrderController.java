@@ -10,11 +10,16 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.qa.ims.persistence.dao.CustomerDaoMysql;
 import com.qa.ims.persistence.dao.OrderDaoMysql;
+import com.qa.ims.persistence.dao.ProductDaoMysql;
+import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Orderlines;
 import com.qa.ims.persistence.domain.Orders;
 import com.qa.ims.persistence.domain.Product;
 import com.qa.ims.services.CrudServices;
+import com.qa.ims.services.CustomerServices;
+import com.qa.ims.services.ProductServices;
 import com.qa.ims.utils.Utils;
 
 public class OrderController implements CrudController<Orders> {
@@ -38,8 +43,17 @@ public class OrderController implements CrudController<Orders> {
 	}
 
 
-
+	ProductController productController = new ProductController(
+			new ProductServices(new ProductDaoMysql(username, password)));
+	
+	CustomerController customerController = new CustomerController(
+			new CustomerServices(new CustomerDaoMysql(username, password)));
 	private CrudServices<Orders> orderService;
+//	private CrudServices<Product> prodService;
+//	private CrudServices<Customer> custService;
+	
+//	ProductController prodC = new ProductController(prodService);
+//	CustomerController custC = new CustomerController(custService);
 	
 	public OrderController(CrudServices<Orders> orderService) {
 		this.orderService = orderService;
@@ -101,6 +115,7 @@ public class OrderController implements CrudController<Orders> {
 					LOGGER.info(orderlinesFromResultSet(resultSetOrderLines));
 					
 				}
+				System.out.println();
 				
 			}catch (Exception e) {
 				LOGGER.debug(e.getStackTrace());
@@ -119,8 +134,12 @@ public class OrderController implements CrudController<Orders> {
 		ArrayList<Integer> prodQtyArray = new ArrayList<Integer>();
 		int [][] orderInfo = new int[10][1];
 		LOGGER.info("Please enter a customer ID you want to make an order for");
+		customerController.readAll();
+//		custC.readAll();
 		Long custId = Long.valueOf(getInput());
 		LOGGER.info("Please enter the ID of the Product you want to order");
+		productController.readAll();
+//		prodC.readAll();
 		prodIdArray.add(Integer.valueOf(getInput()));
 		LOGGER.info("Please enter the Quantity you want to order");
 		prodQtyArray.add(Integer.valueOf(getInput()));
@@ -134,6 +153,8 @@ public class OrderController implements CrudController<Orders> {
 			for(int i =1; i <15; i++) {
 				
 				LOGGER.info("Please enter the ID of the Product you want to order");
+				productController.readAll();
+//				prodC.readAll();
 				prodIdArray.add(Integer.valueOf(getInput()));
 				LOGGER.info("Please enter the Quantity you want to order");
 				prodQtyArray.add(Integer.valueOf(getInput()));
@@ -141,6 +162,8 @@ public class OrderController implements CrudController<Orders> {
 				LOGGER.info("Add more? Enter 1 for yes or 2 for no");
 				
 				addMore = Integer.valueOf(getInput());
+				
+			
 				
 				if (addMore == 2) {
 					break;
