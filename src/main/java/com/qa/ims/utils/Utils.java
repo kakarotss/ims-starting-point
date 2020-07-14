@@ -17,12 +17,6 @@ public class Utils {
 		return SCANNER.nextLine();
 	}
 	
-	public static double getInputDouble() {
-		return SCANNER.nextDouble();
-	}
-	
-	public static int getInputInt() {
-		return SCANNER.nextInt();
-	}
+
 
 }

@@ -18,17 +18,18 @@ public class ProductController implements CrudController<Product>{
 		this.productService = productService;
 	}
 	
+	
 	String getInput() {
 		return Utils.getInput();
 	}
 	
-	double getInputDouble() {
-		return Utils.getInputDouble();
-	}
-	
-	int getInputInt() {
-		return Utils.getInputInt();
-	}
+//	double getInputDouble() {
+//		return Utils.getInputDouble();
+//	}
+//	
+//	int getInputInt() {
+//		return Utils.getInputInt();
+//	}
 	
 	
 	@Override
@@ -46,11 +47,11 @@ public class ProductController implements CrudController<Product>{
 		LOGGER.info("Please enter a Product Name");
 		String prodName = getInput();
 		LOGGER.info("Please enter the Price");
-		double prodPrice = getInputDouble();
+		double prodPrice = Integer.valueOf(getInput());
 		LOGGER.info("Please enter the Quantity available");
-		int prodQty = getInputInt();
+		int prodQty = Integer.valueOf(getInput());
 		Product product = productService.create(new Product(prodName, prodPrice, prodQty));
-		LOGGER.info("Product created");
+//		LOGGER.info("Product created");
 		
 		return product;
 	}
@@ -64,9 +65,9 @@ public class ProductController implements CrudController<Product>{
 		LOGGER.info("Please enter the new Product Name");
 		String name = getInput();
 		LOGGER.info("Please enter the new Product Price");
-		double price = getInputDouble();
+		double price = Double.valueOf(getInput());
 		LOGGER.info("Please enter the new Product Quantity");
-		int qty = getInputInt();
+		int qty = Integer.valueOf(getInput());
 		Product product = productService.update(new Product(id, name, price, qty));
 		return product;
 	}

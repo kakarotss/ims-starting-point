@@ -49,13 +49,7 @@ public class OrderController implements CrudController<Orders> {
 		return Utils.getInput();
 	}
 	
-	double getInputDouble() {
-		return Utils.getInputDouble();
-	}
-	
-	int getInputInt() {
-		return Utils.getInputInt();
-	}
+
 	
 	static Orderlines orderlinesFromResultSet(ResultSet resultSet) throws SQLException {
 		Long orderId = resultSet.getLong("orderId");
@@ -127,12 +121,12 @@ public class OrderController implements CrudController<Orders> {
 		LOGGER.info("Please enter a customer ID you want to make an order for");
 		Long custId = Long.valueOf(getInput());
 		LOGGER.info("Please enter the ID of the Product you want to order");
-		prodIdArray.add(getInputInt());
+		prodIdArray.add(Integer.valueOf(getInput()));
 		LOGGER.info("Please enter the Quantity you want to order");
-		prodQtyArray.add(getInputInt());
+		prodQtyArray.add(Integer.valueOf(getInput()));
 		LOGGER.info("Please enter 1 to add more or 2 to continue (you can add 14 more items)");
 		int option =0;
-		option = getInputInt();
+		option = Integer.valueOf(getInput());
 		int addMore =0;
 		switch(option){
 		
@@ -140,13 +134,13 @@ public class OrderController implements CrudController<Orders> {
 			for(int i =1; i <15; i++) {
 				
 				LOGGER.info("Please enter the ID of the Product you want to order");
-				prodIdArray.add(getInputInt());
+				prodIdArray.add(Integer.valueOf(getInput()));
 				LOGGER.info("Please enter the Quantity you want to order");
-				prodQtyArray.add(getInputInt());
+				prodQtyArray.add(Integer.valueOf(getInput()));
 				
 				LOGGER.info("Add more? Enter 1 for yes or 2 for no");
 				
-				addMore = getInputInt();
+				addMore = Integer.valueOf(getInput());
 				
 				if (addMore == 2) {
 					break;

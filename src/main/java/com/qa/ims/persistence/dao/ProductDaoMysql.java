@@ -109,7 +109,7 @@ public class ProductDaoMysql implements Dao<Product>{
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("update products set prodName ='" + product.getName() + "', prodPrice ='"
-					+ product.getPrice() + "', prodQty ='" + product.getQty() + "' where prodId =" + product.getId());
+					+ product.getPrice() + "', prodQty ='" + product.getQty() + " where prodId =" + product.getId());
 			LOGGER.info("Product Updated");
 			return readProduct(product.getId());
 		} catch (Exception e) {
