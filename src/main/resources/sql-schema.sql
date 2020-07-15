@@ -1,13 +1,13 @@
 create database if not exists ims;
-DROP TABLE IF EXISTS orderLines;
+DROP TABLE IF EXISTS orderlines;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS customers;
 DROP TABLE IF EXISTS users;
 create table if not exists ims.customers(id int primary key auto_increment, first_name varchar(40), surname varchar(40));
 CREATE TABLE if not exists products (prodId INT auto_increment NOT NULL,prodName VARCHAR(40),prodPrice DOUBLE NOT NULL,prodQty INT NOT NULL,primary key(prodId));
-CREATE TABLE orders (orderId INT auto_increment NOT NULL, orderCustId INT, total DOUBLE , primary key(orderId), foreign key(orderCustId) references customers(id) );
-CREATE TABLE orderLines (orderId INT NOT NULL, orderLinesId INT auto_increment, orderCustId INT NOT NULL, prodId INT NOT NULL, prodQty INT NOT NULL, lineCost DOUBLE NOT NULL, FOREIGN KEY (orderId) REFERENCES orders(orderId), FOREIGN KEY (orderCustId) REFERENCES orders(orderCustId), FOREIGN KEY (prodId) REFERENCES products(prodId), PRIMARY KEY (orderLinesId));
+CREATE TABLE if not exists orders (orderId INT auto_increment NOT NULL, orderCustId INT, total DOUBLE , primary key(orderId), foreign key(orderCustId) references customers(id) );
+CREATE TABLE if not exists orderlines (orderId INT NOT NULL, orderLinesId INT auto_increment, orderCustId INT NOT NULL, prodId INT NOT NULL, prodQty INT NOT NULL, lineCost DOUBLE NOT NULL, FOREIGN KEY (orderId) REFERENCES orders(orderId), FOREIGN KEY (orderCustId) REFERENCES orders(orderCustId), FOREIGN KEY (prodId) REFERENCES products(prodId), PRIMARY KEY (orderLinesId));
 insert into customers (first_name, surname) values ("Arbab", "Ahmed");
 insert into customers (first_name, surname) values ("Vinesh", "Ghela");
 insert into customers (first_name, surname) values ("Alan", "idk");

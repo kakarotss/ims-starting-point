@@ -122,7 +122,7 @@ public class OrderDaoMysql implements Dao<Orders>{
 				Total = Total+price*prodQtys.get(i);
 				
 			//inserts into the orderlines table
-				statement.executeUpdate("insert into orderLines(orderId, orderCustId, prodId, prodQty, lineCost) values(" + orderId
+				statement.executeUpdate("insert into orderlines(orderId, orderCustId, prodId, prodQty, lineCost) values(" + orderId
 					+ "," + custId + "," + prodIds.get(i) + ""+ "," + prodQtys.get(i) + ""+ "," + price*prodQtys.get(i) + ""+ ")");
 			
 				//updates the product quantity in the products table

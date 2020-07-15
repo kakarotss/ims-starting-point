@@ -46,6 +46,7 @@ public class Ims {
 		if(domain != Domain.STOP) {
 		LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
 		
+		
 		Action.printActions();
 		Action action = Action.getAction();
 
