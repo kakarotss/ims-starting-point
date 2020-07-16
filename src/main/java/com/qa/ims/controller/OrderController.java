@@ -72,7 +72,7 @@ public class OrderController implements CrudController<Orders> {
 	}
 	
 	
-	// prints all the orderlines using the order Id
+	// prints all the orderlines using the order Id, method for update order
 //	public void orderlinesById(long id) {
 //		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 //				Statement statement = connection.createStatement();
@@ -131,11 +131,9 @@ public class OrderController implements CrudController<Orders> {
 		int [][] orderInfo = new int[10][1];
 		LOGGER.info("Please enter a customer ID you want to make an order for");
 		customerController.readAll();
-//		custC.readAll();
 		Long custId = Long.valueOf(getInput());
 		LOGGER.info("Please enter the ID of the Product you want to order");
 		productController.readAll();
-//		prodC.readAll();
 		prodIdArray.add(Integer.valueOf(getInput()));
 		LOGGER.info("Please enter the Quantity you want to order");
 		prodQtyArray.add(Integer.valueOf(getInput()));
@@ -150,7 +148,6 @@ public class OrderController implements CrudController<Orders> {
 				
 				LOGGER.info("Please enter the ID of the Product you want to order");
 				productController.readAll();
-//				prodC.readAll();
 				prodIdArray.add(Integer.valueOf(getInput()));
 				LOGGER.info("Please enter the Quantity you want to order");
 				prodQtyArray.add(Integer.valueOf(getInput()));
@@ -177,7 +174,6 @@ public class OrderController implements CrudController<Orders> {
 		
 		
 		Orders order = OrderDaoMysql.createOrder(custId, prodIdArray, prodQtyArray);
-//		LOGGER.info("Product created");
 		
 		return order;
 	}
@@ -211,6 +207,7 @@ public class OrderController implements CrudController<Orders> {
 		Long id = Long.valueOf(getInput());
 		
 		orderService.delete(id);
+		System.out.println();
 	}
 
 }

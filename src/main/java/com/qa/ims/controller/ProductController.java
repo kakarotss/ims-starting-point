@@ -39,6 +39,7 @@ public class ProductController implements CrudController<Product>{
 		for(Product product: products) {
 			LOGGER.info(product.toString());
 		}
+		System.out.println();
 		return products;
 	}
 
@@ -51,7 +52,7 @@ public class ProductController implements CrudController<Product>{
 		LOGGER.info("Please enter the Quantity available");
 		int prodQty = Integer.valueOf(getInput());
 		Product product = productService.create(new Product(prodName, prodPrice, prodQty));
-//		LOGGER.info("Product created");
+		System.out.println();
 		
 		return product;
 	}
@@ -69,6 +70,7 @@ public class ProductController implements CrudController<Product>{
 		LOGGER.info("Please enter the new Product Quantity");
 		int qty = Integer.valueOf(getInput());
 		Product product = productService.update(new Product(id, name, price, qty));
+		System.out.println();
 		return product;
 	}
 
@@ -78,6 +80,9 @@ public class ProductController implements CrudController<Product>{
 		Long id = Long.valueOf(getInput());
 		
 		productService.delete(id);
+		LOGGER.info("Product deleted");
+		System.out.println();
+		
 		
 	}
 
