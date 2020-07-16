@@ -136,8 +136,12 @@ public class CustomerDaoMysql implements Dao<Customer> {
 	@Override
 	public void delete(long id) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("delete from customers where id = " + id);
+				Statement statement = connection.createStatement();
+				Statement statement2 = connection.createStatement();
+				Statement statement3 = connection.createStatement();) {
+			statement.executeUpdate("delete from orderlines where orderCustId = "+ id );
+			statement2.executeUpdate("delete from orders where orderCustId = "+ id );
+			statement3.executeUpdate("delete from customers where id = " + id);
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());

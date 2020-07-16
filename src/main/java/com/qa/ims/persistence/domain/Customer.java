@@ -17,6 +17,10 @@ public class Customer {
 		this.surname = surname;
 	}
 
+	public Customer() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Long getId() {
 		return id;
 	}

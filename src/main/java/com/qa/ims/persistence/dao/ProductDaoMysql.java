@@ -78,7 +78,7 @@ public class ProductDaoMysql implements Dao<Product>{
 	public Product readProduct(Long id) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT FROM products where prodId = " + id);) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM products where prodId = " + id);) {
 			resultSet.next();
 			return productFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -108,8 +108,8 @@ public class ProductDaoMysql implements Dao<Product>{
 	public Product update(Product product) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("update products set prodName ='" + product.getName() + "', prodPrice ='"
-					+ product.getPrice() + "', prodQty ='" + product.getQty() + " where prodId =" + product.getId());
+			statement.executeUpdate("update products set prodName ='" + product.getName() + "', prodPrice ="
+					+ product.getPrice() + ", prodQty =" + product.getQty() + " where prodId =" + product.getId());
 			LOGGER.info("Product Updated");
 			return readProduct(product.getId());
 		} catch (Exception e) {
