@@ -61,6 +61,23 @@
 	</distributionManagement>
 
 	<build>
+	
+	<resources>
+      <resource>
+        <directory>src/main/resources/</directory>
+        <includes>
+          <include>sql-schema.sql</include>
+        </includes>
+      </resource>
+      
+      <resource>
+        <directory>src/test/resources/</directory>
+        <includes>
+          <include>sql-schema.sql</include>
+        </includes>
+      </resource>
+    </resources>
+    
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<!-- Creates a jar for the code (does not contain other dependencies which 

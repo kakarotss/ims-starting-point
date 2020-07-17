@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="21" failures="0" name="com.qa.ims.persistence.domain.ProductTest" time="0.004" errors="0" skipped="0">
+<testsuite tests="21" failures="0" name="com.qa.ims.persistence.domain.ProductTest" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="14.0.1+7"/>
@@ -58,24 +58,24 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="noPriceOnBoth" time="0.001"/>
+  <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="noPriceOnBoth" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="nullName" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="createProductWithId" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="NameNotEqual" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="constructorWithoutId" time="0"/>
-  <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="product2NameDifferent" time="0.001"/>
+  <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="product2NameDifferent" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="checkEqualityBetweenDifferentObjects" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="checkEquality" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="product2PriceDifferent" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="nullId" time="0"/>
-  <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="equalsWithNull" time="0.001"/>
+  <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="equalsWithNull" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="constructorWithoutParam" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="nullIdOnBoth" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="constructorWitId" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="equalsWithDifferentObject" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="toStringTest" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="gettersSettersTest" time="0"/>
-  <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="productNameNullButOtherNameNotNull" time="0.001"/>
+  <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="productNameNullButOtherNameNotNull" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="nullNameOnBoth" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="otherIdDifferent" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.ProductTest" name="noPrice" time="0"/>

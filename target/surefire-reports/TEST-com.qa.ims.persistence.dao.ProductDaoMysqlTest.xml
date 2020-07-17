@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="com.qa.ims.persistence.dao.ProductDaoMysqlTest" time="3.913" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="com.qa.ims.persistence.dao.ProductDaoMysqlTest" time="4.912" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="14.0.1+7"/>
@@ -58,10 +58,10 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.qa.ims.persistence.dao.ProductDaoMysqlTest" name="readProductTest" time="0.216"/>
-  <testcase classname="com.qa.ims.persistence.dao.ProductDaoMysqlTest" name="productUpdateTest" time="1.751"/>
-  <testcase classname="com.qa.ims.persistence.dao.ProductDaoMysqlTest" name="prodReadLatestTest" time="0.62"/>
-  <testcase classname="com.qa.ims.persistence.dao.ProductDaoMysqlTest" name="custDeleteTest" time="0.64"/>
-  <testcase classname="com.qa.ims.persistence.dao.ProductDaoMysqlTest" name="prodCreateTest" time="0.416"/>
-  <testcase classname="com.qa.ims.persistence.dao.ProductDaoMysqlTest" name="prodReadAllTest" time="0.27"/>
+  <testcase classname="com.qa.ims.persistence.dao.ProductDaoMysqlTest" name="readProductTest" time="0.203"/>
+  <testcase classname="com.qa.ims.persistence.dao.ProductDaoMysqlTest" name="productUpdateTest" time="0.576"/>
+  <testcase classname="com.qa.ims.persistence.dao.ProductDaoMysqlTest" name="prodReadLatestTest" time="2.238"/>
+  <testcase classname="com.qa.ims.persistence.dao.ProductDaoMysqlTest" name="custDeleteTest" time="0.564"/>
+  <testcase classname="com.qa.ims.persistence.dao.ProductDaoMysqlTest" name="prodCreateTest" time="0.981"/>
+  <testcase classname="com.qa.ims.persistence.dao.ProductDaoMysqlTest" name="prodReadAllTest" time="0.35"/>
 </testsuite>

@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.qa.ims</groupId>
-	<artifactId>ForenameSurname-SoftwareMarch16</artifactId>
+	<artifactId>ArbabAhmed-SoftwareJun16</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
@@ -61,6 +61,23 @@
 	</distributionManagement>
 
 	<build>
+	
+	<resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+        <include>**/*.sql</include>
+        </includes>
+      </resource>
+      
+      <resource>
+        <directory>src/test/resources/</directory>
+        <includes>
+        <include>**/*.sql</include>
+        </includes>
+      </resource>
+    </resources>
+    
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<!-- Creates a jar for the code (does not contain other dependencies which 
