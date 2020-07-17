@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductDaoMysql.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ForenameSurname-SoftwareMarch16</a> &gt; <a href="index.source.html" class="el_package">com.qa.ims.persistence.dao</a> &gt; <span class="el_source">ProductDaoMysql.java</span></div><h1>ProductDaoMysql.java</h1><pre class="source lang-java linenums">package com.qa.ims.persistence.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.persistence.domain.Product;
+import com.qa.ims.utils.Utils;
+
+public class ProductDaoMysql implements Dao&lt;Product&gt;{
+<span class="fc" id="L18">	public static final Logger LOGGER = Logger.getLogger(ProductDaoMysql.class);</span>
+	
+	
+	private String jdbcConnectionUrl;
+	private String username;
+	private String password;
+
+<span class="fc" id="L25">	public ProductDaoMysql(String username, String password) {</span>
+<span class="fc" id="L26">		this.jdbcConnectionUrl = &quot;jdbc:mysql://&quot; + Utils.MYSQL_URL + &quot;/ims?serverTimezone=UTC&quot;+&quot;&quot;;</span>
+<span class="fc" id="L27">		this.username = username;</span>
+<span class="fc" id="L28">		this.password = password;</span>
+<span class="fc" id="L29">	}</span>
+	
+<span class="fc" id="L31">	public ProductDaoMysql(String jdbcConnectionUrl, String username, String password) {</span>
+<span class="fc" id="L32">		this.jdbcConnectionUrl = jdbcConnectionUrl;</span>
+<span class="fc" id="L33">		this.username = username;</span>
+<span class="fc" id="L34">		this.password = password;</span>
+<span class="fc" id="L35">	}</span>
+	
+	
+	Product productFromResultSet(ResultSet resultSet) throws SQLException {
+<span class="fc" id="L39">		Long id = resultSet.getLong(&quot;prodId&quot;);</span>
+<span class="fc" id="L40">		String Name = resultSet.getString(&quot;prodName&quot;);</span>
+<span class="fc" id="L41">		double Price = resultSet.getDouble(&quot;prodPrice&quot;);;</span>
+<span class="fc" id="L42">		int qty = resultSet.getInt(&quot;prodQty&quot;);;</span>
+<span class="fc" id="L43">		return new Product(id, Name, Price, qty);</span>
+	}
+
+	@Override
+	public List&lt;Product&gt; readAll() {
+		
+<span class="fc" id="L49">		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);</span>
+<span class="fc" id="L50">				Statement statement = connection.createStatement();</span>
+<span class="fc" id="L51">				ResultSet resultSet = statement.executeQuery(&quot;select * from products&quot;);) {</span>
+<span class="fc" id="L52">			ArrayList&lt;Product&gt; products = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">			while (resultSet.next()) {</span>
+<span class="fc" id="L54">				products.add(productFromResultSet(resultSet));</span>
+			}
+<span class="fc" id="L56">			return products;</span>
+<span class="nc" id="L57">		} catch (SQLException e) {</span>
+<span class="nc" id="L58">			LOGGER.debug(e.getStackTrace());</span>
+<span class="nc" id="L59">			LOGGER.error(e.getMessage());</span>
+		}
+<span class="nc" id="L61">		return new ArrayList&lt;&gt;();</span>
+	}
+	
+	
+	public Product readLatest() {
+<span class="fc" id="L66">		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);</span>
+<span class="fc" id="L67">				Statement statement = connection.createStatement();</span>
+<span class="fc" id="L68">				ResultSet resultSet = statement.executeQuery(&quot;SELECT * FROM products ORDER BY prodId DESC LIMIT 1&quot;);) {</span>
+<span class="fc" id="L69">			resultSet.next();</span>
+<span class="fc" id="L70">			return productFromResultSet(resultSet);</span>
+<span class="nc" id="L71">		} catch (Exception e) {</span>
+<span class="nc" id="L72">			LOGGER.debug(e.getStackTrace());</span>
+<span class="nc" id="L73">			LOGGER.error(e.getMessage());</span>
+		}
+<span class="nc" id="L75">		return null;</span>
+	}
+	
+	public Product readProduct(Long id) {
+<span class="fc" id="L79">		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);</span>
+<span class="fc" id="L80">				Statement statement = connection.createStatement();</span>
+<span class="fc" id="L81">				ResultSet resultSet = statement.executeQuery(&quot;SELECT * FROM products where prodId = &quot; + id);) {</span>
+<span class="fc" id="L82">			resultSet.next();</span>
+<span class="fc" id="L83">			return productFromResultSet(resultSet);</span>
+<span class="nc" id="L84">		} catch (Exception e) {</span>
+<span class="nc" id="L85">			LOGGER.debug(e.getStackTrace());</span>
+<span class="nc" id="L86">			LOGGER.error(e.getMessage());</span>
+		}
+<span class="nc" id="L88">		return null;</span>
+	}
+
+	@Override
+	public Product create(Product product) {
+
+<span class="fc" id="L94">		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);</span>
+<span class="fc" id="L95">				Statement statement = connection.createStatement();) {</span>
+<span class="fc" id="L96">			statement.executeUpdate(&quot;insert into products(prodName, prodPrice, prodQty) values('&quot; + product.getName()</span>
+<span class="fc" id="L97">					+ &quot;','&quot; + product.getPrice() + &quot;','&quot;+ product.getQty() + &quot;')&quot;);</span>
+<span class="fc" id="L98">			LOGGER.info(&quot;Product Created&quot;);</span>
+<span class="fc" id="L99">			return readLatest();</span>
+<span class="nc" id="L100">		} catch (Exception e) {</span>
+<span class="nc" id="L101">			LOGGER.debug(e.getStackTrace());</span>
+<span class="nc" id="L102">			LOGGER.error(e.getMessage());</span>
+		}
+<span class="nc" id="L104">		return null;</span>
+	}
+
+	@Override
+	public Product update(Product product) {
+<span class="fc" id="L109">		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);</span>
+<span class="fc" id="L110">				Statement statement = connection.createStatement();) {</span>
+<span class="fc" id="L111">			statement.executeUpdate(&quot;update products set prodName ='&quot; + product.getName() + &quot;', prodPrice =&quot;</span>
+<span class="fc" id="L112">					+ product.getPrice() + &quot;, prodQty =&quot; + product.getQty() + &quot; where prodId =&quot; + product.getId());</span>
+<span class="fc" id="L113">			LOGGER.info(&quot;Product Updated&quot;);</span>
+<span class="fc" id="L114">			return readProduct(product.getId());</span>
+<span class="nc" id="L115">		} catch (Exception e) {</span>
+<span class="nc" id="L116">			LOGGER.debug(e.getStackTrace());</span>
+<span class="nc" id="L117">			LOGGER.error(e.getMessage());</span>
+		}
+<span class="nc" id="L119">		return null;</span>
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(long id) {
+		
+<span class="fc" id="L127">		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);</span>
+<span class="fc" id="L128">				Statement statement = connection.createStatement();) {</span>
+<span class="fc" id="L129">			statement.executeUpdate(&quot;delete from orderlines where prodId = &quot;+ id );</span>
+<span class="fc" id="L130">			statement.executeUpdate(&quot;delete from products where prodId = &quot; + id);</span>
+			
+<span class="nc" id="L132">		} catch (Exception e) {</span>
+<span class="nc" id="L133">			LOGGER.debug(e.getStackTrace());</span>
+<span class="nc" id="L134">			LOGGER.error(e.getMessage());</span>
+		}
+		
+<span class="fc" id="L137">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

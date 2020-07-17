@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ForenameSurname-SoftwareMarch16</a> &gt; <a href="index.source.html" class="el_package">com.qa.ims.controller</a> &gt; <span class="el_source">OrderController.java</span></div><h1>OrderController.java</h1><pre class="source lang-java linenums">package com.qa.ims.controller;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import com.qa.ims.persistence.dao.CustomerDaoMysql;
+import com.qa.ims.persistence.dao.OrderDaoMysql;
+import com.qa.ims.persistence.dao.ProductDaoMysql;
+import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.persistence.domain.Orderlines;
+import com.qa.ims.persistence.domain.Orders;
+import com.qa.ims.persistence.domain.Product;
+import com.qa.ims.services.CrudServices;
+import com.qa.ims.services.CustomerServices;
+import com.qa.ims.services.ProductServices;
+import com.qa.ims.utils.Utils;
+
+public class OrderController implements CrudController&lt;Orders&gt; {
+	
+<span class="fc" id="L27">	public static final Logger LOGGER = Logger.getLogger(ProductController.class);</span>
+	
+	private static String jdbcConnectionUrl;
+	private static String username;
+<span class="fc" id="L31">	private static String password;</span>
+	
+<span class="fc" id="L33">	public OrderController(String username, String password) {</span>
+<span class="fc" id="L34">		this.jdbcConnectionUrl = &quot;jdbc:mysql://&quot; + Utils.MYSQL_URL + &quot;/ims?serverTimezone=UTC&quot;+&quot;&quot;;</span>
+<span class="fc" id="L35">		this.username = username;</span>
+<span class="fc" id="L36">		this.password = password;</span>
+<span class="fc" id="L37">	}</span>
+	
+<span class="fc" id="L39">	public OrderController(String jdbcConnectionUrl, String username, String password) {</span>
+<span class="fc" id="L40">		this.jdbcConnectionUrl = jdbcConnectionUrl;</span>
+<span class="fc" id="L41">		this.username = username;</span>
+<span class="fc" id="L42">		this.password = password;</span>
+<span class="fc" id="L43">	}</span>
+
+
+<span class="fc" id="L46">	ProductController productController = new ProductController(</span>
+<span class="fc" id="L47">			new ProductServices(new ProductDaoMysql(username, password)));</span>
+	
+<span class="fc" id="L49">	CustomerController customerController = new CustomerController(</span>
+<span class="fc" id="L50">			new CustomerServices(new CustomerDaoMysql(username, password)));</span>
+	private CrudServices&lt;Orders&gt; orderService;
+
+	
+<span class="fc" id="L54">	public OrderController(CrudServices&lt;Orders&gt; orderService) {</span>
+<span class="fc" id="L55">		this.orderService = orderService;</span>
+<span class="fc" id="L56">	}</span>
+	
+	String getInput() {
+<span class="nc" id="L59">		return Utils.getInput();</span>
+	}
+	
+
+	
+	static Orderlines orderlinesFromResultSet(ResultSet resultSet) throws SQLException {
+<span class="nc" id="L65">		Long orderId = resultSet.getLong(&quot;orderId&quot;);</span>
+<span class="nc" id="L66">		Long orderLinesId = resultSet.getLong(&quot;orderLinesId&quot;);</span>
+<span class="nc" id="L67">		Long custId = resultSet.getLong(&quot;orderCustId&quot;);</span>
+<span class="nc" id="L68">		Long prodId = resultSet.getLong(&quot;prodId&quot;);</span>
+<span class="nc" id="L69">		int qty = resultSet.getInt(&quot;prodQty&quot;);</span>
+<span class="nc" id="L70">		double lineCost = resultSet.getDouble(&quot;lineCost&quot;);</span>
+<span class="nc" id="L71">		return new Orderlines(orderId, orderLinesId, custId, prodId, qty, lineCost);</span>
+	}
+	
+	
+	// prints all the orderlines using the order Id, method for update order
+//	public void orderlinesById(long id) {
+//		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+//				Statement statement = connection.createStatement();
+//				
+//				ResultSet resultSetOrderLines = statement.executeQuery(&quot;select * from orderlines where orderId = &quot; + id);
+//				 ) {
+//			
+//			
+//			while(resultSetOrderLines.next()) {
+//				LOGGER.info(orderlinesFromResultSet(resultSetOrderLines));
+//				
+//			}
+//			
+//		}catch (Exception e) {
+//			LOGGER.debug(e.getStackTrace());
+//			LOGGER.error(e.getMessage());
+//		}
+//	}
+
+	@Override
+	public List&lt;Orders&gt; readAll() {
+<span class="fc" id="L97">		List&lt;Orders&gt; orders = orderService.readAll();</span>
+<span class="fc" id="L98">		ArrayList&lt;Orderlines&gt; orderlines = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L99">		int counter = 0;</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">		for(Orders order: orders) {</span>
+<span class="fc" id="L101">			LOGGER.info(order.toString());</span>
+			
+<span class="pc" id="L103">			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);</span>
+<span class="nc" id="L104">					Statement statement = connection.createStatement();</span>
+<span class="nc" id="L105">					ResultSet resultSetOrderLines = statement.executeQuery(&quot;select * from orderlines where orderId = &quot; + orders.get(counter).getOrderId());</span>
+					 ) {
+				
+				
+<span class="nc bnc" id="L109" title="All 2 branches missed.">				while(resultSetOrderLines.next()) {</span>
+<span class="nc" id="L110">					orderlines.add(orderlinesFromResultSet(resultSetOrderLines));</span>
+<span class="nc" id="L111">					LOGGER.info(orderlinesFromResultSet(resultSetOrderLines));</span>
+					
+				}
+<span class="nc" id="L114">				System.out.println();</span>
+				
+<span class="fc" id="L116">			}catch (Exception e) {</span>
+<span class="fc" id="L117">				LOGGER.debug(e.getStackTrace());</span>
+<span class="fc" id="L118">				LOGGER.error(e.getMessage());</span>
+			}
+<span class="fc" id="L120">			counter++ ;</span>
+			
+			
+		}
+<span class="fc" id="L124">		return orders;</span>
+	}
+
+	@Override
+	public Orders create() {
+<span class="nc" id="L129">		ArrayList&lt;Integer&gt; prodIdArray = new ArrayList&lt;Integer&gt;();</span>
+<span class="nc" id="L130">		ArrayList&lt;Integer&gt; prodQtyArray = new ArrayList&lt;Integer&gt;();</span>
+		
+<span class="nc" id="L132">		int [][] orderInfo = new int[10][1];</span>
+<span class="nc" id="L133">		LOGGER.info(&quot;Please enter a customer ID you want to make an order for&quot;);</span>
+<span class="nc" id="L134">		customerController.readAll();</span>
+<span class="nc" id="L135">		Long custId = Long.valueOf(getInput());</span>
+<span class="nc" id="L136">		LOGGER.info(&quot;Please enter the ID of the Product you want to order&quot;);</span>
+<span class="nc" id="L137">		productController.readAll();</span>
+<span class="nc" id="L138">		prodIdArray.add(Integer.valueOf(getInput()));</span>
+<span class="nc" id="L139">		LOGGER.info(&quot;Please enter the Quantity you want to order&quot;);</span>
+<span class="nc" id="L140">		prodQtyArray.add(Integer.valueOf(getInput()));</span>
+<span class="nc" id="L141">		LOGGER.info(&quot;Please enter 1 to add more or 2 to continue (you can add 14 more items)&quot;);</span>
+<span class="nc" id="L142">		int option =0;</span>
+<span class="nc" id="L143">		option = Integer.valueOf(getInput());</span>
+<span class="nc" id="L144">		int addMore =0;</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">		switch(option){</span>
+		
+		case 1:
+<span class="nc bnc" id="L148" title="All 2 branches missed.">			for(int i =1; i &lt;15; i++) {</span>
+				
+<span class="nc" id="L150">				LOGGER.info(&quot;Please enter the ID of the Product you want to order&quot;);</span>
+<span class="nc" id="L151">				productController.readAll();</span>
+<span class="nc" id="L152">				prodIdArray.add(Integer.valueOf(getInput()));</span>
+<span class="nc" id="L153">				LOGGER.info(&quot;Please enter the Quantity you want to order&quot;);</span>
+<span class="nc" id="L154">				prodQtyArray.add(Integer.valueOf(getInput()));</span>
+				
+<span class="nc" id="L156">				LOGGER.info(&quot;Add more? Enter 1 for yes or 2 for no&quot;);</span>
+				
+<span class="nc" id="L158">				addMore = Integer.valueOf(getInput());</span>
+				
+			
+				
+<span class="nc bnc" id="L162" title="All 2 branches missed.">				if (addMore == 2) {</span>
+<span class="nc" id="L163">					break;</span>
+				}
+				
+				
+			}
+<span class="nc" id="L168">			break;</span>
+			
+		case 2:
+			break;
+			
+		}
+		
+		
+		
+<span class="nc" id="L177">		Orders order = OrderDaoMysql.createOrder(custId, prodIdArray, prodQtyArray);</span>
+		
+<span class="nc" id="L179">		return order;</span>
+	}
+
+	@Override
+	public Orders update() {
+		
+<span class="nc" id="L185">		System.out.println(&quot;Orders cannot be updated&quot;);</span>
+		
+		//not required in the spec
+		
+//		readAll();
+//		
+//		LOGGER.info(&quot;Please enter the order ID you want to make changes to &quot;);
+//		orderlinesById(Long.valueOf(getInput()));
+//		LOGGER.info(&quot;Please enter the orderlines ID you want to update&quot;);
+//		Long orderlinesId = Long.valueOf(getInput());
+//		LOGGER.info(&quot;Please enter the new product Id&quot;);
+//		Long prodId = (Long.valueOf(getInput()));
+//		LOGGER.info(&quot;Please enter the new Product Quantity&quot;);
+//		int qty = getInputInt();
+//		Orders orderlines = orderService.update(new Orders(orderlinesId, name, price, qty));
+//		return orderlines;
+<span class="nc" id="L201">		return null;</span>
+		
+	}
+
+	@Override
+	public void delete() {
+<span class="nc" id="L207">		LOGGER.info(&quot;Please enter the id of the Order you would like to delete&quot;);</span>
+<span class="nc" id="L208">		Long id = Long.valueOf(getInput());</span>
+		
+<span class="nc" id="L210">		orderService.delete(id);</span>
+<span class="nc" id="L211">		System.out.println();</span>
+<span class="nc" id="L212">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Orderlines.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ForenameSurname-SoftwareMarch16</a> &gt; <a href="index.source.html" class="el_package">com.qa.ims.persistence.domain</a> &gt; <span class="el_source">Orderlines.java</span></div><h1>Orderlines.java</h1><pre class="source lang-java linenums">package com.qa.ims.persistence.domain;
+
+public class Orderlines {
+	
+	private Long orderId;
+	private Long orderLinesId;
+	private Long orderCustId;
+	private Long orderProdId;
+	private int orderqty;
+	private double lineCost;
+	
+	
+	public Orderlines(Long orderId, Long orderCustId, Long orderProdId, int orderqty, double lineCost) {
+<span class="fc" id="L14">		super();</span>
+<span class="fc" id="L15">		this.orderId = orderId;</span>
+<span class="fc" id="L16">		this.orderCustId = orderCustId;</span>
+<span class="fc" id="L17">		this.orderProdId = orderProdId;</span>
+<span class="fc" id="L18">		this.orderqty = orderqty;</span>
+<span class="fc" id="L19">		this.lineCost = lineCost;</span>
+<span class="fc" id="L20">	}</span>
+	
+	
+	public Long getOrderLinesId() {
+<span class="fc" id="L24">		return orderLinesId;</span>
+	}
+
+
+	public void setOrderLinesId(Long orderLinesId) {
+<span class="fc" id="L29">		this.orderLinesId = orderLinesId;</span>
+<span class="fc" id="L30">	}</span>
+
+
+	public Orderlines(Long orderId, Long orderLinesId, Long orderCustId, Long orderProdId, int orderqty,
+			double lineCost) {
+<span class="fc" id="L35">		super();</span>
+<span class="fc" id="L36">		this.orderId = orderId;</span>
+<span class="fc" id="L37">		this.orderLinesId = orderLinesId;</span>
+<span class="fc" id="L38">		this.orderCustId = orderCustId;</span>
+<span class="fc" id="L39">		this.orderProdId = orderProdId;</span>
+<span class="fc" id="L40">		this.orderqty = orderqty;</span>
+<span class="fc" id="L41">		this.lineCost = lineCost;</span>
+<span class="fc" id="L42">	}</span>
+
+
+<span class="fc" id="L45">	public Orderlines() {</span>
+		
+<span class="fc" id="L47">	}</span>
+
+
+	public Long getOrderId() {
+<span class="fc" id="L51">		return orderId;</span>
+	}
+
+
+	public void setOrderId(Long orderId) {
+<span class="fc" id="L56">		this.orderId = orderId;</span>
+<span class="fc" id="L57">	}</span>
+
+
+	public Long getOrderCustId() {
+<span class="fc" id="L61">		return orderCustId;</span>
+	}
+
+
+	public void setOrderCustId(Long orderCustId) {
+<span class="fc" id="L66">		this.orderCustId = orderCustId;</span>
+<span class="fc" id="L67">	}</span>
+
+
+	public Long getOrderProdId() {
+<span class="fc" id="L71">		return orderProdId;</span>
+	}
+
+
+	public void setOrderProdId(Long orderProdId) {
+<span class="fc" id="L76">		this.orderProdId = orderProdId;</span>
+<span class="fc" id="L77">	}</span>
+
+
+	public int getOrderqty() {
+<span class="fc" id="L81">		return orderqty;</span>
+	}
+
+
+	public void setOrderqty(int orderqty) {
+<span class="fc" id="L86">		this.orderqty = orderqty;</span>
+<span class="fc" id="L87">	}</span>
+
+
+	public double getLineCost() {
+<span class="fc" id="L91">		return lineCost;</span>
+	}
+
+
+	public void setLineCost(double lineCost) {
+<span class="fc" id="L96">		this.lineCost = lineCost;</span>
+<span class="fc" id="L97">	}</span>
+
+
+	@Override
+	public String toString() {
+<span class="fc" id="L102">		return &quot;Orderlines [orderId=&quot; + orderId + &quot;, orderLinesId=&quot; + orderLinesId + &quot;, orderCustId=&quot; + orderCustId</span>
+<span class="fc" id="L103">				+ &quot;, orderProdId=&quot; + orderProdId + &quot;, orderqty=&quot; + orderqty + &quot;, lineCost=&quot; + lineCost + &quot;]&quot;;</span>
+	}
+
+
+
+	
+	
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

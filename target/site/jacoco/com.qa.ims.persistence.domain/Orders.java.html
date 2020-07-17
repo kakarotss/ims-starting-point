@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Orders.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ForenameSurname-SoftwareMarch16</a> &gt; <a href="index.source.html" class="el_package">com.qa.ims.persistence.domain</a> &gt; <span class="el_source">Orders.java</span></div><h1>Orders.java</h1><pre class="source lang-java linenums">package com.qa.ims.persistence.domain;
+
+public class Orders {
+	
+	private Long orderId;
+	private Long orderCustId;
+	private Long orderProdId;
+	private double Total;
+	private int orderqty;
+	private double lineCost;
+	
+	public Orders(Long orderId, Long orderCustId, Long orderProdId, double total, int orderqty, double lineCost) {
+<span class="fc" id="L13">		super();</span>
+<span class="fc" id="L14">		this.orderId = orderId;</span>
+<span class="fc" id="L15">		this.orderCustId = orderCustId;</span>
+<span class="fc" id="L16">		this.orderProdId = orderProdId;</span>
+<span class="fc" id="L17">		Total = total;</span>
+<span class="fc" id="L18">		this.orderqty = orderqty;</span>
+<span class="fc" id="L19">		this.lineCost = lineCost;</span>
+<span class="fc" id="L20">	}</span>
+	
+
+
+	public Orders(Long orderCustId, Long orderProdId, double total, int orderqty, double lineCost) {
+<span class="fc" id="L25">		super();</span>
+<span class="fc" id="L26">		this.orderCustId = orderCustId;</span>
+<span class="fc" id="L27">		this.orderProdId = orderProdId;</span>
+<span class="fc" id="L28">		Total = total;</span>
+<span class="fc" id="L29">		this.orderqty = orderqty;</span>
+<span class="fc" id="L30">		this.lineCost = lineCost;</span>
+<span class="fc" id="L31">	}</span>
+	
+	
+	
+	public Orders(Long orderId, Long orderCustId, double total) {
+<span class="fc" id="L36">		super();</span>
+<span class="fc" id="L37">		this.orderId = orderId;</span>
+<span class="fc" id="L38">		this.orderCustId = orderCustId;</span>
+<span class="fc" id="L39">		Total = total;</span>
+<span class="fc" id="L40">	}</span>
+	
+	public Orders(Long orderCustId) {
+<span class="fc" id="L43">		super();</span>
+<span class="fc" id="L44">		this.orderCustId = orderCustId;</span>
+	
+<span class="fc" id="L46">	}</span>
+
+<span class="fc" id="L48">	public Orders() {</span>
+		
+<span class="fc" id="L50">	}</span>
+
+	public Long getOrderId() {
+<span class="fc" id="L53">		return orderId;</span>
+	}
+
+	public void setOrderId(Long orderId) {
+<span class="fc" id="L57">		this.orderId = orderId;</span>
+<span class="fc" id="L58">	}</span>
+
+	public Long getOrderCustId() {
+<span class="fc" id="L61">		return orderCustId;</span>
+	}
+
+	public void setOrderCustId(Long orderCustId) {
+<span class="fc" id="L65">		this.orderCustId = orderCustId;</span>
+<span class="fc" id="L66">	}</span>
+
+	public Long getOrderProdId() {
+<span class="fc" id="L69">		return orderProdId;</span>
+	}
+
+	public void setOrderProdId(Long orderProdId) {
+<span class="fc" id="L73">		this.orderProdId = orderProdId;</span>
+<span class="fc" id="L74">	}</span>
+
+	public double getTotal() {
+<span class="fc" id="L77">		return Total;</span>
+	}
+
+	public void setTotal(double total) {
+<span class="fc" id="L81">		Total = total;</span>
+<span class="fc" id="L82">	}</span>
+
+	public int getOrderqty() {
+<span class="fc" id="L85">		return orderqty;</span>
+	}
+
+	public void setOrderqty(int orderqty) {
+<span class="fc" id="L89">		this.orderqty = orderqty;</span>
+<span class="fc" id="L90">	}</span>
+
+	public double getLineCost() {
+<span class="fc" id="L93">		return lineCost;</span>
+	}
+
+	public void setLineCost(double lineCost) {
+<span class="fc" id="L97">		this.lineCost = lineCost;</span>
+<span class="fc" id="L98">	}</span>
+
+	@Override
+	public String toString() {
+<span class="fc" id="L102">		return &quot;Orders [orderId=&quot; + orderId + &quot;, orderCustId=&quot; + orderCustId + &quot;, Total=&quot; + Total + &quot;]&quot;;</span>
+	}
+	
+	
+	
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
