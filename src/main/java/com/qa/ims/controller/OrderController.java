@@ -128,6 +128,7 @@ public class OrderController implements CrudController<Orders> {
 	public Orders create() {
 		ArrayList<Integer> prodIdArray = new ArrayList<Integer>();
 		ArrayList<Integer> prodQtyArray = new ArrayList<Integer>();
+		
 		int [][] orderInfo = new int[10][1];
 		LOGGER.info("Please enter a customer ID you want to make an order for");
 		customerController.readAll();

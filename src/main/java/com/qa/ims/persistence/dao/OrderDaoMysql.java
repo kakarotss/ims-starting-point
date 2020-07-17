@@ -91,17 +91,12 @@ public class OrderDaoMysql implements Dao<Orders>{
 	}
 
 	public static Orders createOrder(Long custId, ArrayList <Integer> prodIds, ArrayList <Integer> prodQtys) {
-		
-		
-		
+
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("insert into orders(orderCustId, total) values('" + custId
 					+ "','" + 0 + "')");
 			
-			
-			
-//			LOGGER.info("Product Created");
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());

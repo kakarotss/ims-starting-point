@@ -126,6 +126,7 @@ public class ProductDaoMysql implements Dao<Product>{
 		
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("delete from orderlines where prodId = "+ id );
 			statement.executeUpdate("delete from products where prodId = " + id);
 			
 		} catch (Exception e) {
