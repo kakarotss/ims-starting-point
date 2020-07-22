@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.qa.ims.persistence.dao.OrderDaoMysqlTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.06 sec
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.536 sec

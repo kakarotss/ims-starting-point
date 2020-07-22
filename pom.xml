@@ -63,12 +63,19 @@
 	<build>
 	
 	<resources>
-      <resource>
-        <directory>src/main/resources</directory>
+	<resource>
+	<directory>src/main/</directory>
         <includes>
-        <include>**/*.sql</include>
+        <include>config</include>
         </includes>
       </resource>
+      <resource>
+        <directory>src</directory>
+        <includes>
+        <include>src</include>
+        </includes>
+      </resource>
+      
       
       <resource>
         <directory>src/test/resources/</directory>

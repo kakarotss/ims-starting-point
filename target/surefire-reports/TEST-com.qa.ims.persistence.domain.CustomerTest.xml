@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="19" failures="0" name="com.qa.ims.persistence.domain.CustomerTest" time="0.001" errors="0" skipped="0">
+<testsuite tests="19" failures="0" name="com.qa.ims.persistence.domain.CustomerTest" time="0.003" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="14.0.1+7"/>
@@ -62,19 +62,19 @@
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="customerNamesNotEqual" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="constructorWithoutId" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="checkEqualityBetweenDifferentObjects" time="0"/>
-  <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="checkEquality" time="0.001"/>
+  <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="checkEquality" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="nullId" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="customerNameNullButOtherNameNotNull" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="equalsWithNull" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="nullIdOnBoth" time="0"/>
-  <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="nullSurnameOnBoth" time="0"/>
+  <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="nullSurnameOnBoth" time="0.001"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="nullSurname" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="equalsWithDifferentObject" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="toStringTest" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="otherSurnameDifferent" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="settersTest" time="0"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="createCustomerWithId" time="0"/>
-  <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="hashCodeTest" time="0"/>
+  <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="hashCodeTest" time="0.001"/>
   <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="hashCodeTestWithNull" time="0"/>
-  <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="otherIdDifferent" time="0"/>
+  <testcase classname="com.qa.ims.persistence.domain.CustomerTest" name="otherIdDifferent" time="0.001"/>
 </testsuite>
